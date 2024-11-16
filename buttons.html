@@ -1,0 +1,35 @@
+<head></head>
+<body>
+    <button 
+        onmousedown="press('red')"
+        onmouseup="release('red')">
+        red
+    </button>
+    <button
+        onmousedown="press('green')"
+        onmouseup="release('green')">
+        green
+    </button>
+</body>
+<script>
+    function press(color) {
+        console.log(color + ' pressed')
+        request(color, 'ON')
+    }
+
+    function release(color) {
+        console.log(color + ' released')
+        request(color, 'OFF')
+    }
+
+    function request(color, state) {
+        fetch('http://192.168.1.116:5000/' + color + 'LED', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "state": state })
+        })
+    }
+</script>
