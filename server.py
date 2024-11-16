@@ -2,7 +2,7 @@ from time import sleep
 import network
 from my_config import ssid, password
 from leds import start_green, stop_green, start_red, stop_red
-from microdot import Microdot
+from microdot import Microdot, send_file
 
 
 def connect_to_wifi():
@@ -20,9 +20,9 @@ def connect_to_wifi():
 def serve():
     app = Microdot()
 
-    @app.route("/")
+    @app.get("/")
     async def index(request):
-        return "Hello, world!"
+        return send_file("buttons.html")
 
     @app.post("/redLED")
     async def postRedLed(request):
