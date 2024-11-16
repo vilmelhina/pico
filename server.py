@@ -34,12 +34,22 @@ def serve(connection):
         request = client.recv(1024)
         request = str(request)
         print(request)
-        # try:
-        #    request = request.split()[1]
-        # except IndexError:
-        #    pass
-        # if request == "/redLED":
-        #    print("RED LED")
-        # elif request == "/greenLED":
-        #    print("GREEN LED")
+        try:
+            print(parseRequest(request))
+            request = request.split(" ")[1]
+        except IndexError:
+            print("error")
+            pass
+        if request == "/redLED":
+            print("RED LED")
+        elif request == "/greenLED":
+            print("GREEN LED")
         client.close()
+
+
+def parseRequest(request):
+    lines = request.split("\r\n")
+    method = lines[0].split(" ")[0]
+    path = lines[0].split(" ")[1]
+    body = lines[-1]
+    return {"method": method, "path": path, "body": body}

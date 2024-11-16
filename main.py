@@ -11,4 +11,4 @@ try:
     connection = open_socket(ip)
     serve(connection)
 except KeyboardInterrupt:
-    machine.reset()
+    pass
